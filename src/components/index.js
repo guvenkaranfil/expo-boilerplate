@@ -1,3 +1,4 @@
 import Header from "./Header";
+import StyledInput from "./StyledInput";
 
-export default { Header };
+export { Header, StyledInput };
