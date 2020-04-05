@@ -1,17 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View, Text } from "react-native";
+import { Provider } from "react-redux";
 
+// Store
+import { store } from "./src/redux/store/Store";
+
+// Route
 import Routes from "./src/navigation/Routes";
 
 export default function App() {
-  return <Routes />;
+  return (
+    <Provider store={store}>
+      <Routes />
+    </Provider>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
