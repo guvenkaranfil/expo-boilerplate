@@ -11,6 +11,8 @@ import { Formik } from "formik";
 import { connect } from "react-redux";
 import UserActions from "../../redux/UserRedux";
 
+import AppWrapper from "../../components/DismissKeyboard";
+
 // validations
 import { SignInValidation } from "../../validations";
 
@@ -35,65 +37,67 @@ const SignIn = ({ user, loginRequest }) => {
     });
 
   return (
-    <View style={CommonStyles.container}>
-      <Formik
-        initialValues={{
-          email: "guvenkaranfil235@gmail.com",
-          password: "123456",
-          confirmPassword: "123456",
-        }}
-        onSubmit={(values, actions) => {
-          signUp({ email: values.email })
-            .then(() => {
-              alert(JSON.stringify(values));
-            })
-            .catch((error) => {
-              actions.setFieldError("general", error.message);
-            })
-            .finally(() => {
-              actions.setSubmitting(false);
-            });
-        }}
-        validationSchema={SignInValidation}
-      >
-        {(formikProps) => (
-          <React.Fragment>
-            <StyledInput
-              label="Email"
-              formikProps={formikProps}
-              formikKey="email"
-              placeholder="johndoe@example.com"
-              autoFocus
-            />
+    <AppWrapper>
+      <View style={CommonStyles.container}>
+        <Formik
+          initialValues={{
+            email: "guvenkaranfil235@gmail.com",
+            password: "123456",
+            confirmPassword: "123456",
+          }}
+          onSubmit={(values, actions) => {
+            signUp({ email: values.email })
+              .then(() => {
+                alert(JSON.stringify(values));
+              })
+              .catch((error) => {
+                actions.setFieldError("general", error.message);
+              })
+              .finally(() => {
+                actions.setSubmitting(false);
+              });
+          }}
+          validationSchema={SignInValidation}
+        >
+          {(formikProps) => (
+            <React.Fragment>
+              <StyledInput
+                label="Email"
+                formikProps={formikProps}
+                formikKey="email"
+                placeholder="johndoe@example.com"
+                autoFocus
+              />
 
-            <StyledInput
-              label="Password"
-              formikProps={formikProps}
-              formikKey="password"
-              placeholder="password"
-              secureTextEntry
-            />
+              <StyledInput
+                label="Password"
+                formikProps={formikProps}
+                formikKey="password"
+                placeholder="password"
+                secureTextEntry
+              />
 
-            <StyledInput
-              label="Confirm Password"
-              formikProps={formikProps}
-              formikKey="confirmPassword"
-              placeholder="confirm password"
-              secureTextEntry
-            />
+              <StyledInput
+                label="Confirm Password"
+                formikProps={formikProps}
+                formikKey="confirmPassword"
+                placeholder="confirm password"
+                secureTextEntry
+              />
 
-            {formikProps.isSubmitting ? (
-              <ActivityIndicator />
-            ) : (
-              <React.Fragment>
-                <Button title="Submit" onPress={formikProps.handleSubmit} />
-                <Text style={{ color: "red" }}>{user.loginRequestError && user.loginRequestError}</Text>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        )}
-      </Formik>
-    </View>
+              {formikProps.isSubmitting ? (
+                <ActivityIndicator />
+              ) : (
+                <React.Fragment>
+                  <Button title="Submit" onPress={formikProps.handleSubmit} />
+                  <Text style={{ color: "red" }}>{user.loginRequestError && user.loginRequestError}</Text>
+                </React.Fragment>
+              )}
+            </React.Fragment>
+          )}
+        </Formik>
+      </View>
+    </AppWrapper>
   );
 };
 
